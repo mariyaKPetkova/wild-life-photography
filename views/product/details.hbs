@@ -1,0 +1,94 @@
+{{!-- <section id="viewhotelDetails">
+    <h2>Details</h2>
+    <div class="hotel-ticket">
+        <div class="hotel-left">
+            <img src="{{product.imageUrl}}" alt="">
+        </div>
+        <div class="hotel-right">
+            <div>
+                <h3>{{product.name}}</h3>
+            </div>
+            <div>
+                {{product.city}}
+            </div>
+            <p><span>Free rooms: {{product.rooms}}</span> </p>
+            {{#if product.hasUser}}
+            {{#if product.isAuthor}}
+            <a href="/products/edit/{{product._id}}" class="edit">Edit</a>
+            <a href="/products/delete/{{product._id}}" class="remove">Delete</a>
+            {{else}}
+            {{#if product.isBooked}}
+            <p><span class="green">You already have booked a room</span> </p>
+            {{else}}
+            <a href="/products/book/{{product._id}}" class="book">Book</a>
+            {{/if}}
+            {{/if}}
+            {{/if}}
+        </div>
+    </div>
+</section> --}}
+
+
+
+<section id="details-page">
+
+    <div class="main_card">
+        <div class="card_left">
+            <div class="card_datails">
+
+                <h1>Title: {{product.name}}</h1>
+                <h3>Created by an author: {{product.nameAuthor}}</h3>
+                <div class="card_animal">
+                    <p class="card-keyword">Keyword: {{product.keyword}}</p>
+                    <p class="card-location">Location: {{product.city}}</p>
+                    <p class="card-date">Date: {{product.date}}</p>
+                </div>
+
+                <p class="disc">Description: {{product.description}}</p>
+
+                <!-- If there is no registered user, do not display buttons-->
+                <div class="social-btn">
+                    <!-- Only for registered user and author of the post -->
+
+                    {{#if product.isAuthor}}
+                    <a href="/products/edit/{{product._id}}" class="edit-btn">Edit</a>
+                    <a href="/products/delete/{{product._id}}" class="del-btn">Delete</a>
+                    <!-- logged in users, who have not yet voted-->
+                    {{/if}}
+                    {{#if product.isntAuthor}}
+                    {{#if product.isVoted}}
+                    <p class="thanks-for-vote">Thanks For Voting</p>
+                    {{else}}
+                    <a href="/products/vote-up/{{product._id}}" class="vote-up">UpVote +1</a>
+                    <a href="/products/vote-down/{{product._id}}" class="vote-down">DownVote -1</a>
+                    {{/if}}
+                    {{/if}}
+
+
+                </div>
+            </div>
+        </div>
+        <div class="card_right">
+            <img src="{{product.imageUrl}}" alt="image">
+        </div>
+    </div>
+
+</section>
+
+<section id="votes">
+    <div class="vote-info">
+        <div class="card_left">
+            <div class="card_datails">
+                <h1>Votes</h1>
+                <div class="card_vote">
+                    {{#if product.hasVote}}
+                    <p class="PV">Total rating of votes: {{product.voted.length}}</p>
+                </div>
+                <p class="disc">People who voted for the post - {{product.voters}}</p>
+                {{else}}
+                <p class="disc">People who voted for the post - No one has voted yet.</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</section>
