@@ -131,7 +131,7 @@ router.get('/delete/:id', isUser(), async (req, res) => {
     try {
         const product = await req.storage.getProductById(req.params.id)
 
-        if (req.user._id != product.author) {
+        if (req.user._id != product.author._id) {
             throw new Error('Cannot delete')
         }
 
