@@ -81,10 +81,10 @@ router.get('/details/:id', async (req, res) => {
 })
 router.get('/edit/:id', isUser(), async (req, res) => {
     try {
+       
         const product = await req.storage.getProductById(req.params.id)
-        // console.log('req.user._id', req.user._id)
-        // console.log('product.author', product.author)
-        if (req.user._id != product.author) {
+        
+        if (req.user._id != product.author._id) {
             throw new Error('Cannot edit')
         }
         res.render('product/edit', { product })
@@ -96,8 +96,8 @@ router.get('/edit/:id', isUser(), async (req, res) => {
 router.post('/edit/:id', isUser(), async (req, res) => {
     try {
         const product = await req.storage.getProductById(req.params.id)
-
-        if (req.user._id != product.author) {
+        //console.log(req.user._id , product.author._id)
+        if (req.user._id != product.author._id) {
             throw new Error('Cannot edit')
         }
         await req.storage.editProduct(req.params.id, req.body)
