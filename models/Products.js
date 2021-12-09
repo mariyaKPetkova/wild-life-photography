@@ -33,6 +33,7 @@ const schema = new Schema({
     },
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     voted: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
+    vote:{type:Number,default:0}
 })
 
 module.exports = model('Product', schema)

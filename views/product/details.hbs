@@ -81,9 +81,9 @@
             <div class="card_datails">
                 <h1>Votes</h1>
                 <div class="card_vote">
-                    {{#if product.hasVote}}
-                    <p class="PV">Total rating of votes: {{product.voted.length}}</p>
+                    <p class="PV">Total rating of votes: {{product.vote}}</p>
                 </div>
+                {{#if product.hasVote}}
                 <p class="disc">People who voted for the post - {{product.voters}}</p>
                 {{else}}
                 <p class="disc">People who voted for the post - No one has voted yet.</p>

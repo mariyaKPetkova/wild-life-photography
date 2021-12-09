@@ -63,9 +63,7 @@ router.get('/details/:id', async (req, res) => {
     
     try {
         const product = await req.storage.getProductById(req.params.id)
-        //console.log(product.voted.map(x=> x.email))
-        // const authorName = await req.storage.getUserById(product.author)
-        console.log(product.author)
+        //console.log(product)
         product.hasUser = Boolean(req.user)
         product.isAuthor = req.user && req.user._id == product.author._id
         product.isntAuthor = req.user && req.user._id != product.author._id
@@ -73,6 +71,7 @@ router.get('/details/:id', async (req, res) => {
         product.hasVote = Boolean(product.voted.length > 0)
         product.nameAuthor = `${product.author.lname} ${product.author.fname}`
         product.voters = product.voted.map(x=> x.email).join(', ')
+       // product.vote = Number(product.vote)
         res.render('product/details', { product })
     } catch (err) {
         res.redirect('/404')
@@ -150,7 +149,7 @@ router.get('/vote-up/:id', isUser(), async (req, res) => {
             throw new Error('Cannot vote')
         }
 
-        await req.storage.voteProduct(req.params.id, req.user._id)
+        await req.storage.voteProductUp(req.params.id, req.user._id)
         //res.redirect('/product/details/' + req.params.id)
         //res.render('product/details/' + req.params.id)
         res.redirect('/')
@@ -166,7 +165,8 @@ router.get('/vote-down/:id', isUser(), async (req, res) => {
         if (req.user._id == product.author) {
             throw new Error('Cannot vote')
         }
-        await req.storage.voteProduct(req.params.id, req.user._id)
+
+        await req.storage.voteProductDown(req.params.id, req.user._id)
         res.redirect('/')
 
     } catch (err) {

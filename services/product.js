@@ -35,9 +35,16 @@ async function deleteProduct(product){
     return Product.findOneAndDelete(product)
     
 }
-async function voteProduct(productId,userId){
+async function voteProductUp(productId,userId){
     const product = await Product.findById(productId)
     product.voted.push(userId)
+    product.vote ++
+    return product.save()
+}
+async function voteProductDown(productId,userId){
+    const product = await Product.findById(productId)
+    product.voted.push(userId)
+    product.vote --
     return product.save()
 }
 
@@ -48,5 +55,6 @@ module.exports = {
     getProductById,
     editProduct,
     deleteProduct,
-    voteProduct
+    voteProductUp,
+    voteProductDown
 }
