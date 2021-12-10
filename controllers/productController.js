@@ -145,14 +145,14 @@ router.get('/vote-up/:id', isUser(), async (req, res) => {
     try {
         const product = await req.storage.getProductById(req.params.id)
         // console.log(product)
-        if (req.user._id == product.author) {
+        if (req.user._id == product.author._id) {
             throw new Error('Cannot vote')
         }
 
         await req.storage.voteProductUp(req.params.id, req.user._id)
         //res.redirect('/product/details/' + req.params.id)
         //res.render('product/details/' + req.params.id)
-        res.redirect('/')
+        res.redirect('/products/details/'+req.params.id)
     } catch (err) {
         res.redirect('/404')
     }
@@ -162,12 +162,12 @@ router.get('/vote-down/:id', isUser(), async (req, res) => {
     try {
         const product = await req.storage.getProductById(req.params.id)
 
-        if (req.user._id == product.author) {
+        if (req.user._id == product.author._id) {
             throw new Error('Cannot vote')
         }
 
         await req.storage.voteProductDown(req.params.id, req.user._id)
-        res.redirect('/')
+        res.redirect('/products/details/'+req.params.id)
 
     } catch (err) {
         res.redirect('/404')
